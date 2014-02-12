@@ -12,6 +12,7 @@ build_requires:
   Test::Fatal: '0'
   Test::More: '0'
   if: '0'
+  version: '0'
 configure_requires:
   ExtUtils::MakeMaker: '6.30'
   Module::Build::Tiny: '0.034'
@@ -31,21 +32,21 @@ no_index:
 provides:
   Dist::Zilla::Plugin::Breaks:
     file: lib/Dist/Zilla/Plugin/Breaks.pm
-    version: '0.001'
+    version: '0.002'
 requires:
   CPAN::Meta::Requirements: '0'
+  Carp: '0'
   Dist::Zilla::Role::MetaProvider: '0'
   Moose: '0'
   namespace::autoclean: '0'
   perl: '5.006'
   strict: '0'
-  version: '0'
   warnings: '0'
 resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-Breaks
   homepage: https://github.com/karenetheridge/Dist-Zilla-Plugin-Breaks
   repository: https://github.com/karenetheridge/Dist-Zilla-Plugin-Breaks.git
-version: '0.001'
+version: '0.002'
 x_Dist_Zilla:
   perl:
     version: '5.019008'

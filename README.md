@@ -4,11 +4,11 @@ Dist::Zilla::Plugin::Breaks - Add metadata about potential breakages to your dis
 
 # VERSION
 
-version 0.001
+version 0.002
 
 # SYNOPSIS
 
-    In your F<dist.ini>:
+In your `dist.ini`:
 
     [Breaks]
     Foo::Bar = <= 1.0       ; anything at this version or below is out of date
@@ -19,7 +19,7 @@ version 0.001
 This plugin adds distribution metadata regarding other modules and version
 that are not compatible with your distribution's release.  It is not quite the
 same as the `conflicts` field in prerequisite metadata (see
-[https://metacpan.org/pod/CPAN::Meta::Spec#Relationships](https://metacpan.org/pod/CPAN::Meta::Spec#Relationships)), but rather
+["Relationships" in CPAN::Meta::Spec](https://metacpan.org/pod/CPAN::Meta::Spec#Relationships)), but rather
 indicates what modules will likely not work once your distribution is
 installed.
 
@@ -35,8 +35,8 @@ by the [Lancaster consensus](http://www.dagolden.com/index.php/2098/the-annotate
 The exact syntax and use may continue to change until it is accepted as an
 official part of the meta specification.
 
-Version ranges can and should normally be specified; see
-[https://metacpan.org/pod/CPAN::Meta::Spec#Version-Ranges](https://metacpan.org/pod/CPAN::Meta::Spec#Version-Ranges). They are
+Version ranges can and normally should be specified; see
+["Version Ranges" in CPAN::Meta::Spec](https://metacpan.org/pod/CPAN::Meta::Spec#Version-Ranges). They are
 interpreted as for `conflicts` -- version(s) specified indicate the __bad__
 versions of modules, not version(s) that must be present for normal operation.
 That is, packages should be specified with the version(s) that will __not__
@@ -52,12 +52,16 @@ or more accurately:
     [Breaks]
     Foo::Bar = < 1.3
 
+A bare version with no operator is interpreted as `>=` -- all versions at
+or above the one specified are considered bad -- which is generally not what
+you want to say!
+
 The [\[CheckBreaks\]](https://metacpan.org/pod/Dist::Zilla::Plugin::Test::CheckBreaks) plugin can
 generate a test for your distribution that will check this field and provide
 diagnostic information to the user should any problems be identified.
 
 Additionally, the [\[Conflicts\]](https://metacpan.org/pod/Dist::Zilla::Plugin::Conflicts) plugin can
-generate `x_breaks` data, as well as a mechanism for checking for conflicts
+generate `x_breaks` data, as well as a (non-standard) mechanism for checking for conflicts
 from within `Makefile.PL`/`Build.PL`.
 
 # SUPPORT
@@ -69,7 +73,7 @@ I am also usually active on irc, as 'ether' at `irc.perl.org`.
 # SEE ALSO
 
 - [Annotated Lancaster consensus](http://www.dagolden.com/index.php/2098/the-annotated-lancaster-consensus/).
-- [https://metacpan.org/pod/CPAN::Meta::Spec#Relationships](https://metacpan.org/pod/CPAN::Meta::Spec#Relationships)
+- ["Relationships" in CPAN::Meta::Spec](https://metacpan.org/pod/CPAN::Meta::Spec#Relationships)
 - [Dist::Zilla::Plugin::Test::CheckBreaks](https://metacpan.org/pod/Dist::Zilla::Plugin::Test::CheckBreaks)
 - [Dist::Zilla::Plugin::Conflicts](https://metacpan.org/pod/Dist::Zilla::Plugin::Conflicts)
 - [Dist::CheckConflicts](https://metacpan.org/pod/Dist::CheckConflicts)

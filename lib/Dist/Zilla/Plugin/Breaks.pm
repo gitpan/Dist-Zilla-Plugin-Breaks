@@ -4,8 +4,8 @@ package Dist::Zilla::Plugin::Breaks;
 BEGIN {
   $Dist::Zilla::Plugin::Breaks::AUTHORITY = 'cpan:ETHER';
 }
-# git description: 9d80ac0
-$Dist::Zilla::Plugin::Breaks::VERSION = '0.001';
+# git description: v0.001-8-g3fded5e
+$Dist::Zilla::Plugin::Breaks::VERSION = '0.002';
 # ABSTRACT: Add metadata about potential breakages to your distribution
 # vim: set ts=8 sw=4 tw=78 et :
 
@@ -13,7 +13,7 @@ use Moose;
 with 'Dist::Zilla::Role::MetaProvider';
 
 use CPAN::Meta::Requirements;
-use version;
+use Carp 'confess';
 use namespace::autoclean;
 
 sub mvp_multivalue_args { qw(breaks) }
@@ -31,7 +31,7 @@ around BUILDARGS => sub
     my $args = $class->$orig(@_);
     my ($zilla, $plugin_name) = delete @{$args}{qw(zilla plugin_name)};
 
-    confess "Missing modules in [Breaks]" if not keys %$args;
+    confess 'Missing modules in [Breaks]' if not keys %$args;
 
     return {
         zilla => $zilla,
@@ -51,11 +51,6 @@ sub metadata
     my $breaks_data = $self->breaks;
     foreach my $package (keys %$breaks_data)
     {
-        $self->log('version without range specified. Did you intend to specify that any version of '
-                . $package . ' at or above '. $breaks_data->{$package}
-                . ' is bad?')
-            if eval { version->parse($breaks_data->{$package}); 1 };
-
         # this validates input data, and canonicalizes formatting
         $reqs->add_string_requirement($package, $breaks_data->{$package});
     }
@@ -80,11 +75,11 @@ Dist::Zilla::Plugin::Breaks - Add metadata about potential breakages to your dis
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 SYNOPSIS
 
-    In your F<dist.ini>:
+In your F<dist.ini>:
 
     [Breaks]
     Foo::Bar = <= 1.0       ; anything at this version or below is out of date
@@ -95,7 +90,7 @@ version 0.001
 This plugin adds distribution metadata regarding other modules and version
 that are not compatible with your distribution's release.  It is not quite the
 same as the C<conflicts> field in prerequisite metadata (see
-L<https://metacpan.org/pod/CPAN::Meta::Spec#Relationships>), but rather
+L<CPAN::Meta::Spec/Relationships>), but rather
 indicates what modules will likely not work once your distribution is
 installed.
 
@@ -111,8 +106,8 @@ by the L<Lancaster consensus|http://www.dagolden.com/index.php/2098/the-annotate
 The exact syntax and use may continue to change until it is accepted as an
 official part of the meta specification.
 
-Version ranges can and should normally be specified; see
-L<https://metacpan.org/pod/CPAN::Meta::Spec#Version-Ranges>. They are
+Version ranges can and normally should be specified; see
+L<CPAN::Meta::Spec/Version Ranges>. They are
 interpreted as for C<conflicts> -- version(s) specified indicate the B<bad>
 versions of modules, not version(s) that must be present for normal operation.
 That is, packages should be specified with the version(s) that will B<not>
@@ -128,12 +123,16 @@ or more accurately:
     [Breaks]
     Foo::Bar = < 1.3
 
+A bare version with no operator is interpreted as C<< >= >> -- all versions at
+or above the one specified are considered bad -- which is generally not what
+you want to say!
+
 The L<[CheckBreaks]|Dist::Zilla::Plugin::Test::CheckBreaks> plugin can
 generate a test for your distribution that will check this field and provide
 diagnostic information to the user should any problems be identified.
 
 Additionally, the L<[Conflicts]|Dist::Zilla::Plugin::Conflicts> plugin can
-generate C<x_breaks> data, as well as a mechanism for checking for conflicts
+generate C<x_breaks> data, as well as a (non-standard) mechanism for checking for conflicts
 from within F<Makefile.PL>/F<Build.PL>.
 
 =for Pod::Coverage mvp_multivalue_args metadata
@@ -154,7 +153,7 @@ L<Annotated Lancaster consensus|http://www.dagolden.com/index.php/2098/the-annot
 
 =item *
 
-L<https://metacpan.org/pod/CPAN::Meta::Spec#Relationships>
+L<CPAN::Meta::Spec/Relationships>
 
 =item *
 

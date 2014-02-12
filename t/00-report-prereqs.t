@@ -79,12 +79,12 @@ my $static_prereqs = do { my $x = {
        'runtime' => {
                       'requires' => {
                                       'CPAN::Meta::Requirements' => '0',
+                                      'Carp' => '0',
                                       'Dist::Zilla::Role::MetaProvider' => '0',
                                       'Moose' => '0',
                                       'namespace::autoclean' => '0',
                                       'perl' => '5.006',
                                       'strict' => '0',
-                                      'version' => '0',
                                       'warnings' => '0'
                                     }
                     },
@@ -102,7 +102,8 @@ my $static_prereqs = do { my $x = {
                                    'Test::Deep::JSON' => '0',
                                    'Test::Fatal' => '0',
                                    'Test::More' => '0',
-                                   'if' => '0'
+                                   'if' => '0',
+                                   'version' => '0'
                                  }
                  }
      };

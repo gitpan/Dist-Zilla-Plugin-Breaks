@@ -81,11 +81,11 @@ my %WriteMakefileArgs = (
   "NAME" => "Dist::Zilla::Plugin::Breaks",
   "PREREQ_PM" => {
     "CPAN::Meta::Requirements" => 0,
+    "Carp" => 0,
     "Dist::Zilla::Role::MetaProvider" => 0,
     "Moose" => 0,
     "namespace::autoclean" => 0,
     "strict" => 0,
-    "version" => 0,
     "warnings" => 0
   },
   "TEST_REQUIRES" => {
@@ -97,9 +97,10 @@ my %WriteMakefileArgs = (
     "Test::Deep::JSON" => 0,
     "Test::Fatal" => 0,
     "Test::More" => 0,
-    "if" => 0
+    "if" => 0,
+    "version" => 0
   },
-  "VERSION" => "0.001",
+  "VERSION" => "0.002",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -108,6 +109,7 @@ my %WriteMakefileArgs = (
 
 my %FallbackPrereqs = (
   "CPAN::Meta::Requirements" => 0,
+  "Carp" => 0,
   "Dist::Zilla::Role::MetaProvider" => 0,
   "ExtUtils::MakeMaker" => 0,
   "File::Spec::Functions" => 0,
