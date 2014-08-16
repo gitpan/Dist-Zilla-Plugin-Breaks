@@ -1,9 +1,11 @@
 use strict;
-use warnings FATAL => 'all';
+use warnings;
 
-use Test::More;
-use Test::CleanNamespaces;
+# this test was generated with Dist::Zilla::Plugin::Test::CleanNamespaces 0.005
 
-namespaces_clean(grep { !/^Dist::Zilla::Plugin::Breaks::Conflicts$/ } Test::CleanNamespaces->find_modules);
+use Test::More 0.94;
+use Test::CleanNamespaces 0.15;
+
+subtest all_namespaces_clean => sub { all_namespaces_clean() };
 
 done_testing;

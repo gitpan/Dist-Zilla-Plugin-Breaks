@@ -1,12 +1,10 @@
 use strict;
 use warnings;
 package Dist::Zilla::Plugin::Breaks;
-BEGIN {
-  $Dist::Zilla::Plugin::Breaks::AUTHORITY = 'cpan:ETHER';
-}
-# git description: v0.001-8-g3fded5e
-$Dist::Zilla::Plugin::Breaks::VERSION = '0.002';
+# git description: v0.002-14-g1ba78a7
+$Dist::Zilla::Plugin::Breaks::VERSION = '0.003';
 # ABSTRACT: Add metadata about potential breakages to your distribution
+# KEYWORDS: distribution metadata prerequisites upstream dependencies modules conflicts breaks breakages
 # vim: set ts=8 sw=4 tw=78 et :
 
 use Moose;
@@ -67,15 +65,13 @@ __END__
 
 =encoding UTF-8
 
-=for :stopwords Karen Etheridge darkPAN CheckBreaks irc
-
 =head1 NAME
 
 Dist::Zilla::Plugin::Breaks - Add metadata about potential breakages to your distribution
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 SYNOPSIS
 
@@ -93,6 +89,8 @@ same as the C<conflicts> field in prerequisite metadata (see
 L<CPAN::Meta::Spec/Relationships>), but rather
 indicates what modules will likely not work once your distribution is
 installed.
+
+=for stopwords darkPAN
 
 This is a not-uncommon problem when modifying a module's API - there are other
 existing modules out on the CPAN (or a darkPAN) which use the old API, and will
@@ -127,7 +125,9 @@ A bare version with no operator is interpreted as C<< >= >> -- all versions at
 or above the one specified are considered bad -- which is generally not what
 you want to say!
 
-The L<[CheckBreaks]|Dist::Zilla::Plugin::Test::CheckBreaks> plugin can
+=for stopwords CheckBreaks
+
+The L<[Test::CheckBreaks]|Dist::Zilla::Plugin::Test::CheckBreaks> plugin can
 generate a test for your distribution that will check this field and provide
 diagnostic information to the user should any problems be identified.
 
@@ -138,6 +138,8 @@ from within F<Makefile.PL>/F<Build.PL>.
 =for Pod::Coverage mvp_multivalue_args metadata
 
 =head1 SUPPORT
+
+=for stopwords irc
 
 Bugs may be submitted through L<the RT bug tracker|https://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-Breaks>
 (or L<bug-Dist-Zilla-Plugin-Breaks@rt.cpan.org|mailto:bug-Dist-Zilla-Plugin-Breaks@rt.cpan.org>).
@@ -166,6 +168,10 @@ L<Dist::Zilla::Plugin::Conflicts>
 =item *
 
 L<Dist::CheckConflicts>
+
+=item *
+
+L<Module::Install::CheckConflicts>
 
 =back
 
